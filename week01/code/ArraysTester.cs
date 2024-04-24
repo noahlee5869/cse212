@@ -34,14 +34,25 @@ public static class ArraysTester {
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     private static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        //I need to create a new array and a new variable to store my values
+        // I first need to use a the variable "number" and add it by itself to a new number the amount of times of length.
+        // At the same time I need to add this to a list "newList"
 
-        return new double[0]; // replace this return statement with your own
+        double[] multiples = new double[length]; // create a new array to work with
+        double new_number = 0; // create a new variable to work with
+        for (var i = 0; i < length; i++) {
+            new_number = new_number + number; // add new_number by itself and by number to create multiples
+            multiples[i] = new_number; // add the new number to the multiples array at the i spot
+        }
+
+        return multiples; // return the completed array
     }
     
+
+
+
+
+
     /// <summary>
     /// Rotate the 'data' to the right by the 'amount'.  For example, if the data is 
     /// <c>&lt;List&gt;{1, 2, 3, 4, 5, 6, 7, 8, 9}</c> and an amount is 3 then the list returned should be 
@@ -52,10 +63,24 @@ public static class ArraysTester {
     /// </summary>
     private static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // to start I will need to create a for loop to move the items in the 
+        // list to the right the "amount" of times that the user has set
+        // to do this I will need to store the last element in the array into a seperate variable
+        
+        // Store the last 'amount' elements in a temporary list
+        List<int> temp = new List<int>(data.GetRange(data.Count - amount, amount));
+        
+         // Move the front elements to the right to make space for the elements to wrap around
+        for (int i = data.Count - 1; i >= amount; i--)
+        {
+            data[i] = data[i - amount];
+        }
+
+        // Place the elements from the temporary list to the beginning
+        for (int i = 0; i < amount; i++)
+        {
+            data[i] = temp[i];
+        }
 
     }
 }
