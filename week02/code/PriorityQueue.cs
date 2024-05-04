@@ -1,5 +1,6 @@
 ﻿public class PriorityQueue {
-    private List<PriorityItem> _queue = new();
+    private List<PriorityItem> _queue = new List<PriorityItem>();
+    public int Count => _queue.Count;
 
     /// <summary>
     /// Add a new value to the queue with an associated priority.  The
@@ -22,14 +23,16 @@
 
         // Find the index of the item with the highest priority to remove
         var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++) {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
+        for (int index = 1; index < _queue.Count; index++) {
+            if (_queue[index].Priority > _queue[highPriorityIndex].Priority){
                 highPriorityIndex = index;
+                }
         }
 
         // Remove and return the item with the highest priority
-        var value = _queue[highPriorityIndex].Value;
-        return value;
+        var item = _queue[highPriorityIndex];
+        _queue.RemoveAt(highPriorityIndex);
+        return item.Value;
     }
 
     public override string ToString() {
