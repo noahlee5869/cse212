@@ -9,6 +9,7 @@
 /// </summary>
 public class TakingTurnsQueue {
     private readonly PersonQueue _people = new();
+    const int INFINITE_TURNS = -1;
 
     public int Length => _people.Length;
 
@@ -17,11 +18,14 @@ public class TakingTurnsQueue {
     /// </summary>
     /// <param name="name">Name of the person</param>
     /// <param name="turns">Number of turns remaining</param>
-    public void AddPerson(string name, int turns) {
-        var person = new Person(name, turns);
-        _people.Enqueue(person);
+public void AddPerson(string name, int turns) {
+    if (turns <= 0) {
+        turns = INFINITE_TURNS;  
+        }
+    var person = new Person(name, turns);
+    _people.Enqueue(person);
+}
 
-    }
 
     /// <summary>
     /// Get the next person in the queue and display them.  The person should
@@ -30,21 +34,24 @@ public class TakingTurnsQueue {
     /// person has an infinite number of turns.  An error message is displayed 
     /// if the queue is empty.
     /// </summary>
-    public void GetNextPerson() {
-        if (_people.IsEmpty())
-            Console.WriteLine("No one in the queue.");
-        else {
-            Person person = _people.Dequeue();
-            Console.WriteLine(person.Name);
-            if (person.Turns > 0) {
-                person.Turns --;
-                
-            }
-            if(person.Turns != 0){
-                _people.Enqueue(person);
-            }
+public void GetNextPerson() {
+    if (_people.IsEmpty()) {
+        Console.WriteLine("No one in the queue.");
+    } else {
+        Person person = _people.Dequeue();
+        Console.WriteLine(person.Name);
+
+        if (person.Turns > 0) {
+            person.Turns--; 
+        }
+
+        if (person.Turns > 0 || person.Turns == INFINITE_TURNS) {
+            _people.Enqueue(person);
         }
     }
+}
+
+
 
     public override string ToString() {
         return _people.ToString();
