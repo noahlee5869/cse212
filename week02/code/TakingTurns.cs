@@ -12,11 +12,12 @@
         players.AddPerson("Bob", 2);
         players.AddPerson("Tim", 5);
         players.AddPerson("Sue", 3);
-        // Console.WriteLine(players);    // This can be un-commented out for debug help
+        Console.WriteLine(players);    // This can be un-commented out for debug help
         while (players.Length > 0)
             players.GetNextPerson();
         // Defect(s) Found: 
-
+        // Not cycling through the three names, does them all one at at time.
+        // Also Bob and Sue were in the wrong order.
         Console.WriteLine("---------");
 
         // Test 2
@@ -39,7 +40,7 @@
             players.GetNextPerson();
 
         // Defect(s) Found: 
-
+        // Again the names are not cycling through the queue properly otherwise everything looks fine.
         Console.WriteLine("---------");
 
         // Test 3
@@ -57,7 +58,7 @@
             // Console.WriteLine(players);
         }
         // Defect(s) Found: 
-
+        // Again the people aren't rotating, as well Tim was supposed to be infinite but he only came up in the queue once.
         Console.WriteLine("---------");
 
          // Test 4
@@ -74,7 +75,7 @@
             // Console.WriteLine(players);
         }
         // Defect(s) Found: 
-
+        // People not rotating through queue properly, and Tim in not infinite.
         Console.WriteLine("---------");
 
         // Test 5
@@ -83,6 +84,6 @@
         Console.WriteLine("Test 5");
         players = new TakingTurnsQueue();
         players.GetNextPerson();
-        // Defect(s) Found:
+        // Defect(s) Found: This worked properly it seems.
     }
 }

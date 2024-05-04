@@ -1,7 +1,8 @@
 /// <summary>
 /// A basic implementation of a Queue
 /// </summary>
-public class PersonQueue {
+public class PersonQueue : Queue<Person>
+{
     private readonly List<Person> _queue = new();
 
     public int Length => _queue.Count;
@@ -11,7 +12,7 @@ public class PersonQueue {
     /// </summary>
     /// <param name="person">The person to add</param>
     public void Enqueue(Person person) {
-        _queue.Insert(0, person);
+        _queue.Add(person);
     }
 
     public Person Dequeue() {

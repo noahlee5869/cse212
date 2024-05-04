@@ -20,6 +20,7 @@ public class TakingTurnsQueue {
     public void AddPerson(string name, int turns) {
         var person = new Person(name, turns);
         _people.Enqueue(person);
+
     }
 
     /// <summary>
@@ -34,12 +35,14 @@ public class TakingTurnsQueue {
             Console.WriteLine("No one in the queue.");
         else {
             Person person = _people.Dequeue();
-            if (person.Turns > 1) {
-                person.Turns -= 1;
+            Console.WriteLine(person.Name);
+            if (person.Turns > 0) {
+                person.Turns --;
+                
+            }
+            if(person.Turns != 0){
                 _people.Enqueue(person);
             }
-
-            Console.WriteLine(person.Name);
         }
     }
 

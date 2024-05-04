@@ -12,6 +12,11 @@
         Console.WriteLine(value);
         // Defect(s) Found:
 
+
+        var result = queue(100);
+        Console.WriteLine(result);
+
+        
         Console.WriteLine("------------");
 
         // Test 2
