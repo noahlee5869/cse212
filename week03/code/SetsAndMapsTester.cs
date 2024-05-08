@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text.Json;
 
 public static class SetsAndMapsTester {
@@ -148,7 +149,18 @@ public static class SetsAndMapsTester {
         var degrees = new Dictionary<string, int>();
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
-            // Todo Problem 2 - ADD YOUR CODE HERE
+            if (fields.Length > 3) { // checks for the appropriate number of columns
+                string degree = fields[3].Trim(); // Grab the degree from the 4th column
+
+                if (!string.IsNullOrEmpty(degree)){
+                    if (degrees.ContainsKey(degree)) {
+                        degrees[degree]++; // moves count if degree is aready set up in dictionary
+                    }
+                    else {
+                        degrees[degree] = 1;
+                    }
+                }
+            }
         }
 
         return degrees;
@@ -174,8 +186,43 @@ public static class SetsAndMapsTester {
     /// # Problem 3 #
     /// #############
     private static bool IsAnagram(string word1, string word2) {
-        // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+        // Make sure that there are no spaces and convert everything to lowercase.
+        var normalizedWord1 = word1.Replace(" ","").ToLower();
+        var normalizedWord2 = word2.Replace(" ","").ToLower();
+        
+        // determine anagrams by the lengths of each word
+        if(normalizedWord1.Length != normalizedWord2.Length){
+            return false;
+        }
+
+        var charCounts = new Dictionary<char, int>();
+
+        foreach (char c in normalizedWord1){
+            if (charCounts.ContainsKey(c)){
+                charCounts[c]++;
+            }
+            else {
+                charCounts[c] = 1;
+            }
+        }
+    foreach (char c in normalizedWord2) {
+        if (!charCounts.ContainsKey(c)) {
+            // If a character does not match in word1 to word2 they can't be anagrams
+            return false;
+        }
+        else {
+            charCounts[c]--;
+            // check to see if word2 has more characters than word1
+            if(charCounts[c] < 0){
+                return false;
+            }
+        }
+    }
+
+
+
+
+        return true;
     }
 
     /// <summary>
