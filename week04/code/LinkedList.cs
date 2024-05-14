@@ -27,7 +27,19 @@ public class LinkedList : IEnumerable<int> {
     /// Insert a new node at the back (i.e. the tail) of the linked list.
     /// </summary>
     public void InsertTail(int value) {
-        // TODO Problem 1
+        // Create new node
+        Node newNode = new Node(value);
+        // check to see if list is empty
+        if (_head is null) {
+            _head = newNode;
+            _tail = newNode;
+        }
+        // If the list not not empty, then only make changes to tail
+        else {
+            _tail.Next = newNode;
+            newNode.Prev = _tail;
+            _tail = newNode;
+        }
     }
 
 
@@ -55,7 +67,16 @@ public class LinkedList : IEnumerable<int> {
     /// Remove the last node (i.e. the tail) of the linked list.
     /// </summary>
     public void RemoveTail() {
-        // TODO Problem 2
+        // Check if the list is empty or if it only has a singular node
+        if (_head == _tail) {
+            _head = null;
+            _tail = null;
+        }
+        // If the list has multiple nodes
+        else if (_tail != null) {
+            _tail.Prev!.Next = null; // disconnect node
+            _tail = _tail.Prev; // Update tail to new node
+        }
     }
 
     /// <summary>
@@ -93,7 +114,30 @@ public class LinkedList : IEnumerable<int> {
     /// Remove the first node that contains 'value'.
     /// </summary>
     public void Remove(int value) {
-        // TODO Problem 3
+       Node? current = _head;
+
+       while (current != null) {
+        if (current.Data == value) { // The node we want to remove is the head
+            if (current == _head) {
+                RemoveHead();
+            }
+            else if (current == _tail) {
+                RemoveTail();
+            }
+            else {
+                if (current.Prev != null){
+                    current.Prev.Next = current.Next;
+                    if(current.Next != null) {
+                        current.Next.Prev = current.Prev;
+                    }
+                }
+
+            
+            }
+            break;
+        }
+        current = current.Next;
+       } 
     }
 
     /// <summary>

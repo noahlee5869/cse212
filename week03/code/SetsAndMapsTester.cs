@@ -284,8 +284,11 @@ public static class SetsAndMapsTester {
     /// https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
     /// 
     /// </summary>
-    private static void EarthquakeDailySummary() {
+ 
+}   private static void EarthquakeDailySummary() {
+
         const string uri = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
+        
         using var client = new HttpClient();
         using var getRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
         using var jsonStream = client.Send(getRequestMessage).Content.ReadAsStream();
@@ -299,5 +302,4 @@ public static class SetsAndMapsTester {
         // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to print out each place a earthquake has happened today and its magitude.
-    }
 }
