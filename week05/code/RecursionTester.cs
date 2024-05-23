@@ -146,8 +146,17 @@ public static class RecursionTester {
     /// n &lt;= 0, just return 0.   A loop should not be used.
     /// </summary>
     public static int SumSquaresRecursive(int n) {
-        // TODO Start Problem 1
-        return 0;
+        
+        if (n <= 0)
+        {
+            // if n is equal to 0 this is our exit
+            return 0;
+        }
+        else
+        {
+            // n^2 and add it to the total as the function counts down.
+            return (n * n) + SumSquaresRecursive(n - 1);
+        }
     }
 
     /// <summary>
@@ -170,7 +179,25 @@ public static class RecursionTester {
     /// and the length of the letters list).
     /// </summary>
     public static void PermutationsChoose(string letters, int size, string word = "") {
-        // TODO Start Problem 2
+        // Compare the length of the words with the given size
+        if (word.Length == size){
+            Console.WriteLine(word);
+            return;
+        }
+        else
+        {
+            // run through each letter and change the variation.
+            for (var i = 0; i < letters.Length; i++)
+            {
+                // new variable newWord
+                string newWord = word + letters[i];
+                // new variable newLetters 
+                string newLetters = letters.Substring(0, i) + letters.Substring(i + 1);
+                // call the function to itself and run through the letters to create "words" given the size
+                PermutationsChoose(newLetters, size, newWord);
+            }
+        }
+
     }
 
     /// <summary>
