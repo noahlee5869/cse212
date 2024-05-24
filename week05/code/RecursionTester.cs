@@ -66,8 +66,7 @@ public static class RecursionTester {
         Console.WriteLine(CountWaysToClimb(5)); // 13
         Console.WriteLine(CountWaysToClimb(20)); // 121415
         // Uncomment out the test below after implementing memoization.  It won't work without it.
-        // TODO Problem 3
-        // Console.WriteLine(CountWaysToClimb(100));  // 180396380815100901214157639
+        Console.WriteLine(CountWaysToClimb(100));  // 180396380815100901214157639
 
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== PROBLEM 4 TESTS ===========");
@@ -246,6 +245,9 @@ public static class RecursionTester {
     /// until the memoization is implemented.
     /// </summary>
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null) {
+        if(remember == null){
+            remember = new Dictionary<int, decimal>();
+        }
         // Base Cases
         if (s == 0)
             return 0;
@@ -256,8 +258,12 @@ public static class RecursionTester {
         if (s == 3)
             return 4;
 
-        // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        //check in the dictionary
+        if(remember.ContainsKey(s)){
+            return remember[s];
+        }
+        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+        remember[s] = ways;
         return ways;
     }
 
@@ -275,7 +281,22 @@ public static class RecursionTester {
     /// some of the string functions like IndexOf and [..X] / [X..] to be useful in solving this problem.
     /// </summary>
     public static void WildcardBinary(string pattern) {
-        // TODO Start Problem 4
+        // I create a helper function to help me with the recursion
+        void Generate(string currentPattern, int index) {
+            int starIndex = currentPattern.IndexOf('*');
+
+            if (starIndex == -1) {
+                Console.WriteLine(currentPattern);
+                return;
+            }
+
+            string patternWithZero = currentPattern.Substring(0, starIndex) + '0' + currentPattern.Substring(starIndex + 1);
+            string patternWithOne = currentPattern.Substring(0, starIndex) + '1' + currentPattern.Substring(starIndex + 1);
+            Generate (patternWithZero, starIndex + 1);
+            Generate(patternWithOne, starIndex + 1);
+        }
+
+        Generate(pattern, 0);
     }
 
     /// <summary>
@@ -283,16 +304,40 @@ public static class RecursionTester {
     /// 'end' square.
     /// </summary>
     public static void SolveMaze(Maze maze, int x = 0, int y = 0, List<ValueTuple<int, int>>? currPath = null) {
-        // If this is the first time running the function, then we need
-        // to initialize the currPath list.
-        if (currPath == null)
-            currPath = new List<ValueTuple<int, int>>();
+//
+    //    if (currPath == null)
+    //        currPath = new List<ValueTuple<int, int>>();
+//
+    //    // currPath.Add((1,2)); // Use this syntax to add to the current path
+    //    currPath.Add((x,y));
+    //    // TODO Start Problem 5
+    //    if(maze.IsEnd(x,y)) {
+    //        Console.WriteLine(currPath.AsString());
+    //        currPath.RemoveAt(currPath.Count - 1);
+    //        return;
+    //    }
+//
+    //    maze.MarkVisited(x, y);
+    //    
+    //    // Set up any possivle move
+    //    int[] dx = { 1, 0, -1, 0};
+    //    int[] dy = {0, 1, 0, -1};
+//
+    //    // Look through every possible move
+    //    for (int i = 0; i < 4, i++){
+    //        int newX = x +dx[i];
+    //        int newY = y + dy[i];
+//
+    //        // Try the new position to see if it works
+    //        if (maze.IsValidMove(newX, newY) && !maze.IsVisited(newX, newY)){
+    //            SolveMaze(maze, newX, newY, currPath);
+    //        }
+    //    }
+//
+    //    // unmark the current cll and remove it from the path
+    //    maze.UnmarkVisited(x, y);
+    //    currPath.RemoveAt(currPath.Count - 1);
+//
 
-        // currPath.Add((1,2)); // Use this syntax to add to the current path
-
-        // TODO Start Problem 5
-        // ADD CODE HERE
-
-        // Console.WriteLine(currPath.AsString()); // Use this to print out your path when you find the solution
     }
 }
